@@ -46,11 +46,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }: UserProv
                     return;
                 }
 
-                // Debug: Log the token to see what we're working with
                 console.log('Stored token:', storedToken);
                 
-                // Since this is not a JWT token, we don't decode it
-                // Just use it directly for API calls
                 const response = await axios.get<User>('http://localhost:8000/api/users', {
                     headers: {
                         'Content-Type': 'application/json',

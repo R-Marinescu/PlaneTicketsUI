@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate, useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { UserProvider, useUserContext } from './context/UserContext';
+import { useUserContext } from './context/UserContext';
 import LoginForm from './components/LoginForm';
 
 
@@ -27,8 +27,7 @@ function App() {
   };
 
   return (
-    <UserProvider>
-      <Container className="mb-4">
+    <Container className="mb-4">
         <div>
           {isLoggedIn && user && <p className='alert alert-success'>Welcome, {user.email}!</p>}
           <Routes>            
@@ -36,7 +35,6 @@ function App() {
           </Routes>
         </div>
       </Container>
-    </UserProvider>
   );
 }
 
