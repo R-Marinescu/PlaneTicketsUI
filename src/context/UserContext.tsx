@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
-import { jwtDecode } from 'jwt-decode';
 import axios from "axios";
 import React from "react";
 
@@ -10,11 +9,6 @@ interface User {
     lastName: string;
     email: string;
     
-}
-
-interface DecodedToken {
-    exp: number;
-    sub: string;
 }
 
 interface UserContextProps {
@@ -38,7 +32,7 @@ type UserProviderProps = {
     children: ReactNode;
 };
 
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+export const UserProvider: React.FC<UserProviderProps> = ({ children }: UserProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -52,16 +46,12 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
                     return;
                 }
 
-                const decodedToken: DecodedToken = jwtDecode(storedToken);
-                const currentTime = Date.now() / 1000;
-
-                if (decodedToken.exp < currentTime) {
-                    setError('Token has expired');
-                    localStorage.removeItem('authToken');
-                    return;
-                }
-
-                const response = await axios.get<User>('http://localhost:8080/api/users/user-details', {
+                // Debug: Log the token to see what we're working with
+                console.log('Stored token:', storedToken);
+                
+                // Since this is not a JWT token, we don't decode it
+                // Just use it directly for API calls
+                const response = await axios.get<User>('http://localhost:8000/api/users', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${storedToken}`
@@ -70,7 +60,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
                 if (response.status === 200) {
                     setUser(response.data);
-                   // setIsAdmin(response.data.role === 'ADMIN');
+                    //setIsAdmin(response.data.role === 'ADMIN');
                 } else {
                     setError('Failed to fetch user details');
                 }
