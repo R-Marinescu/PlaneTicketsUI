@@ -62,7 +62,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }: UserProv
     }, []); // Run once on mount
 
     if (isLoading) {
-        return <div>Loading...</div>; // Show loading while checking token
+        return <div>Loading...</div>;
     }
 
     return (

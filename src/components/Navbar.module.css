@@ -1,0 +1,88 @@
+/* Navbar.module.css */
+.navbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.navbar:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: white !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.brand:hover {
+    color: #ffd700 !important;
+    transform: scale(1.05);
+}
+
+.navLink {
+    color: white !important;
+    font-weight: 500;
+    margin: 0 8px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.navLink:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffd700 !important;
+    transform: translateY(-2px);
+}
+
+.navLink:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
+}
+
+.logoutBtn {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+    color: white !important;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.logoutBtn:hover {
+    background: linear-gradient(45deg, #ff5252, #d32f2f);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.logoutBtn:active {
+    transform: translateY(0);
+}
+
+.navToggle {
+    border: none;
+    background: transparent;
+}
+
+.navToggle:focus {
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .navLink {
+        margin: 4px 0;
+        text-align: center;
+    }
+    
+    .brand {
+        font-size: 1.3rem;
+    }
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate, useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import LoginForm from './components/LoginForm';
+import Navbar from './components/Navbar';
 import { useUserContext } from './context/UserContext';
 
 function App() {
@@ -23,12 +24,12 @@ function App() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('email');
   };
-//console.log("User context:", user);
+
   return (
     <Container className="mb-4">
         <div>
-          
           {isLoggedIn && user && <p className='alert alert-success'>Welcome, {user.email}!</p>}
+          <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
           <Routes>            
             <Route path="/login" element={<LoginForm setIsLoggedIn={setIsLoggedIn} setToken={setToken} />} />
           </Routes>
