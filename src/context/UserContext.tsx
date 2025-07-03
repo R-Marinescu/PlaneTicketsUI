@@ -11,22 +11,12 @@ interface User {
     
 }
 
-interface UserContextProps {
+interface UserContextType {
     user: User | null;
-    isAdmin: boolean;
-    error: string | null;
-    fetchUserDetails: () => void;
+    setUser: (user: User | null) => void;
 }
 
-const UserContext = createContext<UserContextProps | undefined>(undefined);
-
-export const useUserContext = () => {
-    const context = useContext(UserContext);
-    if (!context) {
-        throw new Error('useUserContext must be used within a UserProvider');
-    }
-    return context;
-};
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
 type UserProviderProps = {
     children: ReactNode;
@@ -34,46 +24,58 @@ type UserProviderProps = {
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }: UserProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const [isAdmin, setIsAdmin] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState(true);
 
-        const fetchUserDetails = async () => {
-            try {
-                const storedToken = localStorage.getItem('authToken');
+    useEffect(() => {
+        const restoreUser = async () => {
+            const token = localStorage.getItem('authToken');
+           
+            if (token) {
+                try {
+                    const response = await axios.get('http://localhost:8000/api/user', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json',
+                        }
+                    });
                 
-                if (!storedToken) {     
-                    setError('No token found in UserContext');
-                    return;
-                }
-
-                console.log('Stored token:', storedToken);
-                
-                const response = await axios.get<User>('http://localhost:8000/api/users', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${storedToken}`
+                    if (response.status === 200) {
+                        const userData = {
+                            userId: response.data.data.id,
+                            firstName: response.data.data.first_name,
+                            lastName: response.data.data.last_name,
+                            email: response.data.data.email
+                        };
+                        
+                        setUser(userData);
                     }
-                });
-
-                if (response.status === 200) {
-                    setUser(response.data);
-                    //setIsAdmin(response.data.role === 'ADMIN');
-                } else {
-                    setError('Failed to fetch user details');
+                } catch (error) {
+                    console.error('Token validation failed:', error);
+                    // Remove invalid token
+                    localStorage.removeItem('authToken');
                 }
-            } catch (error) {
-                setError('Error fetching user details');
-                console.error('Error fetching user details:', error);
             }
+            setIsLoading(false);
         };
 
-        useEffect(() => {
-            fetchUserDetails();
-          }, []);
+        restoreUser();
+    }, []); // Run once on mount
+
+    if (isLoading) {
+        return <div>Loading...</div>; // Show loading while checking token
+    }
 
     return (
-        <UserContext.Provider value={{ user, isAdmin, error, fetchUserDetails }}>
+        <UserContext.Provider value={{ user, setUser }}>
             {children}
         </UserContext.Provider>
     );
+};
+
+export const useUserContext = (): UserContextType => {
+    const context = useContext(UserContext);
+    if (!context) {
+        throw new Error('useUserContext must be used within a UserProvider');
+    }
+    return context;
 };

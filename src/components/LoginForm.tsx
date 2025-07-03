@@ -14,8 +14,7 @@ interface LoginFormProps {
 }
 
 function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
-    const { fetchUserDetails } = useUserContext();
-
+    const { setUser } = useUserContext();
     const[formEmail, setFormEmail] = useState<string>('');
     const[password, setPassword] = useState<string>('');
 
@@ -28,13 +27,22 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
             });
 
             const loginResponse = response.data;
+            console.log("Login response:", loginResponse.user);
 
             if(response.status === 200) {
                 if(loginResponse.token) {
                     setIsLoggedIn(true);
                     localStorage.setItem('authToken', loginResponse.token);
                     setToken(loginResponse.token);
-                    fetchUserDetails();
+                    
+                    const userData = {
+                        userId: loginResponse.id,
+                        firstName: loginResponse.first_name,
+                        lastName: loginResponse.last_name,
+                        email: loginResponse.email
+                    };
+                    
+                    setUser(userData);
                     alert("Login successful!");
                 } else {
                     console.error("Login response missing token", loginResponse);
@@ -48,42 +56,42 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
     };
 
     return (
-        <div className="container">
-      <h2 className="my-4">Login</h2>
-      <form onSubmit={(e) => { e.preventDefault(); login({ email: formEmail, password }); }}>
-        <div className="mb-3 row justify-content-center">
-          <div className="col-md-6 col-lg-4">
-            <label htmlFor="username" className="form-label">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              value={formEmail}
-              onChange={(e) => setFormEmail(e.target.value)}
-              required
-            />
+      <div className="container">
+        <h2 className="my-4">Login</h2>
+        <form onSubmit={(e) => { e.preventDefault(); login({ email: formEmail, password }); }}>
+          <div className="mb-3 row justify-content-center">
+            <div className="col-md-6 col-lg-4">
+              <label htmlFor="username" className="form-label">Username</label>
+              <input
+                type="text"
+                className="form-control"
+                id="username"
+                value={formEmail}
+                onChange={(e) => setFormEmail(e.target.value)}
+                required
+              />
+            </div>
           </div>
-        </div>
-        <div className="mb-3 row justify-content-center">
-          <div className="col-md-6 col-lg-4">
-            <label htmlFor="password" className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+          <div className="mb-3 row justify-content-center">
+            <div className="col-md-6 col-lg-4">
+              <label htmlFor="password" className="form-label">Password</label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
           </div>
-        </div>
-        <div className="row justify-content-center">
-          <div className="col-md-6 col-lg-4">
-            <button type="submit" className="btn btn-primary w-100">Login</button>
+          <div className="row justify-content-center">
+            <div className="col-md-6 col-lg-4">
+              <button type="submit" className="btn btn-primary w-100">Login</button>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
     );
 }
 
