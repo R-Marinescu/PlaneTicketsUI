@@ -31,8 +31,11 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
 
             if(response.status === 200) {
                 if(loginResponse.token) {
+                  const expiresAt = loginResponse.expires_at;
+                  
                     setIsLoggedIn(true);
                     localStorage.setItem('authToken', loginResponse.token);
+                    localStorage.setItem('tokenExpiresAt', expiresAt);
                     setToken(loginResponse.token);
                     
                     const userData = {

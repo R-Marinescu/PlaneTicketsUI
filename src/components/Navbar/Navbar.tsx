@@ -30,7 +30,7 @@ const Navbar = ({ isLoggedIn, handleLogout }: NavbarProps) => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    <div className={`${isMenuOpen ? 'block' : 'hidden'} md:flex md:items-center md:space-x-6 text-base`}>
+                    <div className={`${isMenuOpen ? 'block' : '!hidden'} md:flex md:items-center md:space-x-6 text-base`}>
                         <NavLink as={Link} to="/">Home</NavLink>
                         <NavLink as={Link} to="/login">Login</NavLink>
                         <NavLink as={Link} to="/register">Register</NavLink>

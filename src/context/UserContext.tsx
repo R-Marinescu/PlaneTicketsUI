@@ -29,8 +29,21 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }: UserProv
     useEffect(() => {
         const restoreUser = async () => {
             const token = localStorage.getItem('authToken');
+            const expiresAt = localStorage.getItem('tokenExpiresAt');
            
-            if (token) {
+            if (token && expiresAt) {
+                const now = new Date();
+                const expiration = new Date(expiresAt);
+
+                if(now > expiration) {
+                    console.log('Token expired, logging out...');
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('tokenExpiresAt');
+                    setUser(null);
+                    setIsLoading(false);
+                    return;
+                }
+
                 try {
                     const response = await axios.get('http://localhost:8000/api/user', {
                         headers: {
