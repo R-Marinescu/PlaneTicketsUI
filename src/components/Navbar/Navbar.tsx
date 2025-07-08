@@ -34,7 +34,7 @@ const Navbar = ({ isLoggedIn, handleLogout }: NavbarProps) => {
                         <NavLink as={Link} to="/">Home</NavLink>
                         <NavLink as={Link} to="/login">Login</NavLink>
                         <NavLink as={Link} to="/register">Register</NavLink>
-                        <NavLink as={Link} to="/user-me">Profile</NavLink>
+                        <NavLink as={Link} to="/user-details">Profile</NavLink>
                         <NavLink as={Link} to="/About">About</NavLink>
                         {isLoggedIn && (
                             <button

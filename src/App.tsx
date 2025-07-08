@@ -4,6 +4,7 @@ import { useUserContext } from './context/UserContext';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import Navbar from './components/Navbar/Navbar';
+import UserDetails from './components/UserDetails';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Routes>            
             <Route path="/login" element={<LoginForm setIsLoggedIn={setIsLoggedIn} setToken={setToken} />} />
             <Route path="/register" element={<RegisterForm />} />
+            <Route path="/user-details" element={<UserDetails />} />
           </Routes>
         </div>
     </div>
