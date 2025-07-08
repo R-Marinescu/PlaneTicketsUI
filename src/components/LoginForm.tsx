@@ -75,6 +75,7 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
             id="username"
             value={formEmail}
             onChange={(e) => setFormEmail(e.target.value)}
+            placeholder="email@email.com"
             required
           />
         </div>

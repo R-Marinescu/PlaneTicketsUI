@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { useUserContext } from './context/UserContext';
 import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
 import Navbar from './components/Navbar/Navbar';
 
 
@@ -34,6 +35,7 @@ function App() {
           </p>}
           <Routes>            
             <Route path="/login" element={<LoginForm setIsLoggedIn={setIsLoggedIn} setToken={setToken} />} />
+            <Route path="/register" element={<RegisterForm />} />
           </Routes>
         </div>
     </div>
