@@ -39,12 +39,12 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
                     setToken(loginResponse.token);
                     
                     const userData = {
-                        userId: loginResponse.id,
-                        firstName: loginResponse.first_name,
-                        lastName: loginResponse.last_name,
-                        email: loginResponse.email
+                        userId: loginResponse.user.id,
+                        firstName: loginResponse.user.first_name,
+                        lastName: loginResponse.user.last_name,
+                        email: loginResponse.user.email
                     };
-                    
+                  
                     setUser(userData);
                     alert("Login successful!");
                 } else {
