@@ -71,7 +71,7 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
           </label>
           <input
             type="text"
-            className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+            className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-white"
             id="username"
             value={formEmail}
             onChange={(e) => setFormEmail(e.target.value)}
@@ -85,7 +85,7 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
           </label>
           <input
             type="password"
-            className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+            className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-white"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

@@ -63,7 +63,7 @@ return (
                     </label>
                     <input
                     type="text"
-                    className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                    className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-white"
                     id="firstName"
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value})}
@@ -76,7 +76,7 @@ return (
                     </label>
                     <input 
                     type="text"
-                    className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                    className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-white"
                     id="lastName"
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ... formData, lastName: e.target.value})}
@@ -89,7 +89,7 @@ return (
                     </label>
                     <input 
                     type="text"
-                    className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                    className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-white"
                     id="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value})}
@@ -102,7 +102,7 @@ return (
                     </label>
                     <input 
                     type="password"
-                    className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                    className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-white"
                     id="password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value})}

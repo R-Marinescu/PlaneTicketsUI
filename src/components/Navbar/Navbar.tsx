@@ -12,7 +12,7 @@ const Navbar = ({ isLoggedIn, handleLogout }: NavbarProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
     return (
-        <nav className="sticky top-0 shadow-sm bg-white mb-4 z-50 w-full">
+        <nav className="sticky top-0 shadow-sm bg-white mb-1 z-50 w-full">
             <Container>
                 <div className="flex items-center py-4 min-h-[64px]">
                     <button
