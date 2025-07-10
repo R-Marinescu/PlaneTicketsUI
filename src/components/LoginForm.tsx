@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import axios from 'axios';
 import { useUserContext } from '../context/UserContext';
+import ErrorComponent from './ErrorComponent';
 
 interface LoginData {
     email: string;
@@ -17,10 +18,12 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
     const { setUser } = useUserContext();
     const[formEmail, setFormEmail] = useState<string>('');
     const[password, setPassword] = useState<string>('');
+    const [emailError, setEmailError] = useState<string | null>(null);
+    const [passwordError, setPasswordError] = useState<string | null>(null);
 
     const login = async (loginData: LoginData) => {
         try {
-            const response = await axios.post('http://localhost:8000/api/login', loginData, {
+            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/login`, loginData, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -53,9 +56,23 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
             } else {
                 console.error("Login failed:", loginResponse.message);
             }
-        }catch (error) {
-            console.error('Error during login:', error);
-        }
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            if (error.response?.status === 422) {
+              setPasswordError(error.response.data.errors);
+              setEmailError(null);
+            }
+            else if (error.response?.status === 401) {
+              setEmailError(error.response.data.message);
+              setPasswordError(null);
+            }
+            else {
+              console.error('Error:', error.response?.data);
+            }
+          } else {
+            console.error('Unexpected error:', error);
+          }
+}
     };
 
     return (
@@ -78,6 +95,7 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
             placeholder="email@email.com"
             required
           />
+          <ErrorComponent error={emailError} />
         </div>
         <div className="mb-6">
           <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
@@ -91,6 +109,7 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <ErrorComponent error={passwordError} />
         </div>
         <button 
           type="submit" 

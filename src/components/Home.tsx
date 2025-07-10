@@ -7,7 +7,6 @@ function Home() {
     const handleSearch = () => {
         if (fromCity && toCity) {
             console.log('Searching flights from:', fromCity, 'to:', toCity);
-            // Here you would typically make an API call or navigate to results
             alert(`Searching flights from ${fromCity} to ${toCity}`);
         } else {
             alert('Please fill in both departure and destination cities');
