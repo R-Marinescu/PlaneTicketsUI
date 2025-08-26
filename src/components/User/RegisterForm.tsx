@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import ErrorComponent from './ErrorComponent';
+import ErrorComponent from '../ErrorComponent';
 
 interface RegisterData {
     firstName: string;
@@ -46,17 +46,14 @@ function RegisterForm() {
                     password: ''
                 });
             } else {
-                setError("Registration failed. Please try again.");
+                console.log("Registration failed. Please try again.");
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                console.error('Error during registration:', error.response?.data?.errors.password );
-                console.error('Error during registration:', error.response?.data?.errors.email);
                 setEmailError(error.response?.data?.errors.email || null);
                 setPasswordError(error.response?.data?.errors.password || null);
             } else {
                 console.error('Unexpected error:', error);
-                setError("An unexpected error occurred. Please try again.");
             }
         }
     };

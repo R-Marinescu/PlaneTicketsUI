@@ -8,7 +8,7 @@ interface User {
     firstName: string;
     lastName: string;
     email: string;
-    
+    role: string;
 }
 
 interface UserContextType {
@@ -57,7 +57,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }: UserProv
                             userId: response.data.data.id,
                             firstName: response.data.data.first_name,
                             lastName: response.data.data.last_name,
-                            email: response.data.data.email
+                            email: response.data.data.email,
+                            role: response.data.data.role
                         };
                         
                         setUser(userData);

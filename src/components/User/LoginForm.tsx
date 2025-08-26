@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import axios from 'axios';
-import { useUserContext } from '../context/UserContext';
-import ErrorComponent from './ErrorComponent';
+import { useUserContext } from '../../context/UserContext';
+import ErrorComponent from '../ErrorComponent';
 
 interface LoginData {
     email: string;
@@ -45,7 +45,8 @@ function LoginForm({ setIsLoggedIn, setToken }: LoginFormProps) {
                         userId: loginResponse.user.id,
                         firstName: loginResponse.user.first_name,
                         lastName: loginResponse.user.last_name,
-                        email: loginResponse.user.email
+                        email: loginResponse.user.email,
+                        role: loginResponse.user.role
                     };
                   
                     setUser(userData);

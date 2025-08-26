@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import NavLink from './NavLink';
 import Container from '../container/Container';
+import { useUserContext } from '../../context/UserContext';
+
 
 interface NavbarProps {
     isLoggedIn: boolean;
@@ -10,6 +12,7 @@ interface NavbarProps {
 
 const Navbar = ({ isLoggedIn, handleLogout }: NavbarProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); 
+    const { user } = useUserContext();
 
     return (
         <nav className="sticky top-0 shadow-sm bg-white mb-1 z-50 w-full">
@@ -35,7 +38,8 @@ const Navbar = ({ isLoggedIn, handleLogout }: NavbarProps) => {
                         <NavLink as={Link} to="/login">Login</NavLink>
                         <NavLink as={Link} to="/register">Register</NavLink>
                         <NavLink as={Link} to="/user-details">Profile</NavLink>
-                        <NavLink as={Link} to="/About">About</NavLink>
+                        {user?.role === 'admin' && <NavLink as={Link} to="/admin">Admin</NavLink>}
+                        <NavLink as={Link} to="/about">About</NavLink>
                         {isLoggedIn && (
                             <button
                                 onClick={handleLogout}
